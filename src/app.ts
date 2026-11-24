@@ -12,6 +12,7 @@ import { healthRouter } from "./modules/health/health.routes.js";
 import { passwordRecoveryEnabled } from "./config/env.js";
 import { sendSuccess } from "./shared/api-response.js";
 import { createTemplateRouter } from "./modules/templates/template.routes.js";
+import { createInvitationRouter } from "./modules/invitations/invitation.routes.js";
 
 export function createApp(auth: ReturnType<typeof createAuth>) {
  const app = express();
@@ -27,6 +28,7 @@ export function createApp(auth: ReturnType<typeof createAuth>) {
  app.use(express.json({ limit: "1mb" }));
  app.use("/api/users", createUsersRouter(auth, createRequireAuth(auth)));
  app.use("/api/templates", createTemplateRouter(auth));
+ app.use("/api/invitations", createInvitationRouter(auth));
  app.use("/api/health", healthRouter);
  app.use(notFoundHandler);
  app.use(errorHandler);
